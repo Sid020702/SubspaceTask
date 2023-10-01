@@ -30,16 +30,16 @@ exports.fetchAllBlogs = _.memoize(function () {
 
 exports.getTotalBlogs = _.memoize(function (blogs) {
     return _.size(blogs)
-})
+}, ([...blogs]) => JSON.stringify(blogs))
 
 
 
-exports.numPrivacy = _.memoize(function (blogs) {
+exports.getPrivacyBlogs = _.memoize(function (blogs) {
     privacyBlogs = _.filter(blogs, (blog) => {
         return _.includes(_.lowerCase(blog["title"]), "privacy")
     })
     return _.size(privacyBlogs)
-})
+}, ([...blogs]) => JSON.stringify(blogs))
 
 
 
@@ -49,7 +49,7 @@ exports.getLongestTitle = _.memoize(function (blogs) {
         return _.size(blog["title"])
     })[total_blogs - 1]["title"]
     return longest_blog_title
-})
+}, ([...blogs]) => JSON.stringify(blogs))
 
 
 
@@ -58,7 +58,7 @@ exports.getUniqueTitles = _.memoize(function (blogs) {
         return _.toLower(blog["title"])
     }))
     return unique_titles
-})
+}, ([...blogs]) => JSON.stringify(blogs))
 
 
 
@@ -66,4 +66,4 @@ exports.getQueriedBlogs = _.memoize(function (blogs, query) {
     return _.filter(blogs, (blog) => {
         return _.includes(_.lowerCase(blog["title"]), _.lowerCase(query))
     })
-}, (...args) => JSON.stringify(args))    //Converting both args to array and stringifying it
+}, ({ ...args }) => JSON.stringify(args))    //Converting both args to array and stringifying it

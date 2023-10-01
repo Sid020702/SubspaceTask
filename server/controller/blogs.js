@@ -7,9 +7,9 @@ exports.getBlogStats = (req, res, next) => {
             error.statusCode = 404
             throw error
         }
-        const totalBlogs = utils.getTotalBlogs(blogs)          //Total number of blogs
+        const totalBlogs = utils.getTotalBlogs(blogs)    //Total number of blogs
         const longestBlogTitle = utils.getLongestTitle(blogs)  //BLog with the longest title
-        const privacyBlogs = utils.numPrivacy(blogs)           //Blogs with "privacy" in their titles
+        const privacyBlogs = utils.getPrivacyBlogs(blogs)           //Blogs with "privacy" in their titles
         const uniqueBlogTitles = utils.getUniqueTitles(blogs)  //All unique blog titles
         res.status(200).json({
             total_blogs: totalBlogs,
